@@ -1,0 +1,18 @@
+# ──────────────────────────────────────────────────────────────
+#  Job Pilot – Configuration
+#  Fill in your Naukri.com credentials and desired search params.
+# ──────────────────────────────────────────────────────────────
+
+auth:
+  email: "[EMAIL_ADDRESS]"
+  password: "[PASSWORD]"
+
+search:
+  keywords:
+    - "Python Developer"
+  experience: "3"           # years of experience (e.g. "0", "1", "5")
+  location: "Bangalore"
+
+browser:
+  headless: false           # set true to run without a visible window
+  implicit_wait: 10         # seconds to wait for elements
