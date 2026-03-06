@@ -28,6 +28,7 @@ class AppConfig:
     keywords: List[str] = field(default_factory=list)
     experience: str = ""          # e.g. "3" (years)
     location: str = ""
+    job_age: str = ""             # freshness in days ("1" = last day)
 
     # ── Browser ───────────────────────────────────────────
     headless: bool = False
@@ -71,6 +72,7 @@ def load_config(path: str | Path | None = None) -> AppConfig:
         keywords=flat.get("keywords", []),
         experience=str(flat.get("experience", "")),
         location=flat.get("location", ""),
+        job_age=str(flat.get("job_age", "")),
         headless=flat.get("headless", False),
         implicit_wait=int(flat.get("implicit_wait", 10)),
     )

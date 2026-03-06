@@ -4,14 +4,15 @@
 # ──────────────────────────────────────────────────────────────
 
 auth:
-  email: "[EMAIL_ADDRESS]"
-  password: "[PASSWORD]"
+  email: ""
+  password: ""
 
 search:
   keywords:
-    - "Python Developer"
-  experience: "3"           # years of experience (e.g. "0", "1", "5")
+    - "Software Architect"
+  experience: "2"           # years of experience (e.g. "0", "1", "5")
   location: "Bangalore"
+  job_age: "1"              # freshness filter: "1" = last 1 day, "" = no filter
 
 browser:
   headless: false           # set true to run without a visible window
