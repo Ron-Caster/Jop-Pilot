@@ -4,16 +4,21 @@
 # ──────────────────────────────────────────────────────────────
 
 auth:
-  email: ""
-  password: ""
+  email: "your_email@example.com"
+  password: "your_password"
 
 search:
   keywords:
-    - "Software Architect"
-  experience: "2"           # years of experience (e.g. "0", "1", "5")
-  location: "Bangalore"
-  job_age: "1"              # freshness filter: "1" = last 1 day, "" = no filter
-
+    - "software engineer"
+  filter_terms:
+    - "ai"
+  experience: ""           # years of experience (e.g. "0", "1", "5")
+  location: ""
+  job_age: ""              # freshness filter: "1" = last 1 day, "" = no filter
+  sort_by_date: false       # set true to do the latest/fresh Date sort NB: May include unwanted jobs, so use with caution
+  auto_apply: true          # set true to open job link and attempt apply
+  max_jobs: 0              # number of jobs to process; empty or 0 = no limit
+  max_pages: 5             # number of pages to process; empty or 0 = no limit
 browser:
   headless: false           # set true to run without a visible window
   implicit_wait: 10         # seconds to wait for elements

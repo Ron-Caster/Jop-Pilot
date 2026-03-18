@@ -54,7 +54,31 @@ def main() -> None:
         login(session.page, config)
 
         # ── 4. Search ─────────────────────────────────────
-        search_jobs(session.page, config)
+        all_jobs, ai_jobs = search_jobs(session.page, config)
+
+        if all_jobs:
+            print("\n[main] All jobs (in memory only):")
+            for idx, job in enumerate(all_jobs, start=1):
+                print(f"[main]   {idx}. {job.get('title', '')}")
+                print(f"[main]       Company: {job.get('company', '')}")
+                print(f"[main]       Location: {job.get('location', '')}")
+                print(f"[main]       Experience: {job.get('experience', '')}")
+                print(f"[main]       Tags: {job.get('tags', '')}")
+                print(f"[main]       Link: {job.get('link', '')}")
+
+        if ai_jobs:
+            print("\n[main] AI-related jobs (in memory only):")
+            for idx, job in enumerate(ai_jobs, start=1):
+                print(f"[main]   {idx}. {job.get('title', '')}")
+                print(f"[main]       Company: {job.get('company', '')}")
+                print(f"[main]       Location: {job.get('location', '')}")
+                print(f"[main]       Experience: {job.get('experience', '')}")
+                print(f"[main]       Tags: {job.get('tags', '')}")
+                print(f"[main]       Link: {job.get('link', '')}")
+                if config.auto_apply:
+                    print(f"[main]       Apply status: {job.get('apply_status', '')}")
+        else:
+            print("\n[main] No AI-related jobs found.")
 
         # Keep the browser open so the user can inspect results
         print("\n[main] ✅ Done!  The browser will stay open.")

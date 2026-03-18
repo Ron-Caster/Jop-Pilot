@@ -26,9 +26,14 @@ class AppConfig:
 
     # ── Search ────────────────────────────────────────────
     keywords: List[str] = field(default_factory=list)
+    filter_terms: List[str] = field(default_factory=list)
     experience: str = ""          # e.g. "3" (years)
     location: str = ""
     job_age: str = ""             # freshness in days ("1" = last day)
+    sort_by_date: bool = True
+    auto_apply: bool = False
+    max_jobs: int | None = None
+    max_pages: int | None = None
 
     # ── Browser ───────────────────────────────────────────
     headless: bool = False
@@ -66,13 +71,34 @@ def load_config(path: str | Path | None = None) -> AppConfig:
         if section in raw and isinstance(raw[section], dict):
             flat.update(raw[section])
 
+    def _normalize_list(value) -> List[str]:
+        if isinstance(value, list):
+            items: List[str] = []
+            for item in value:
+                if isinstance(item, str) and "," in item:
+                    items.extend([part.strip() for part in item.split(",") if part.strip()])
+                elif isinstance(item, str) and item.strip():
+                    items.append(item.strip())
+            return items
+        if isinstance(value, str):
+            return [part.strip() for part in value.split(",") if part.strip()]
+        return []
+
+    keywords = _normalize_list(flat.get("keywords", []))
+    filter_terms = _normalize_list(flat.get("filter_terms", []))
+
     return AppConfig(
         email=flat.get("email", ""),
         password=flat.get("password", ""),
-        keywords=flat.get("keywords", []),
+        keywords=keywords,
+        filter_terms=filter_terms,
         experience=str(flat.get("experience", "")),
         location=flat.get("location", ""),
         job_age=str(flat.get("job_age", "")),
+        sort_by_date=bool(flat.get("sort_by_date", True)),
+        auto_apply=bool(flat.get("auto_apply", False)),
+        max_jobs=int(flat.get("max_jobs")) if str(flat.get("max_jobs", "")).strip() else None,
+        max_pages=int(flat.get("max_pages")) if str(flat.get("max_pages", "")).strip() else None,
         headless=flat.get("headless", False),
         implicit_wait=int(flat.get("implicit_wait", 10)),
     )
